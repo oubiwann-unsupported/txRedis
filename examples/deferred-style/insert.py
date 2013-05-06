@@ -9,6 +9,11 @@ from txredis.client import RedisClientFactory
 
 
 def doInsert(client):
+    """
+    This is just demonstrating client functionality and how you can use deferred
+    lists to do a bunch of subsequent calls. A better thing here would be to use
+    client.mset for setting mulitple key/value pairs at the same time.
+    """
     log.msg("Preparing to insert a bunch of data ...")
     deferreds = []
     for x in xrange(10000):
