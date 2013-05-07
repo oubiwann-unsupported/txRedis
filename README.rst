@@ -1,5 +1,5 @@
 ##############################################
-txredis - asynchronous redis client for Python
+txRedis - asynchronous redis client for Python
 ##############################################
 
 An asynchronous Redis client library for the `Twisted Python
@@ -41,11 +41,11 @@ redis-client mailing list, or you can ask:
 Bug tracker
 ===========
 
-File bug reports and any other feedback with the issue tracker at
-http://github.com/deldotdr/txRedis/issues/
+File bug reports and any other feedback with the `issue tracker`_.
 
 
 .. Links
 .. -----
 .. _Twisted Python networking framework: http://www.twistedmatrix.com/
 .. _hiredis protocol parser: https://github.com/pietern/hiredis-py
+.. _issue tracker: http://github.com/deldotdr/txRedis/issues/
