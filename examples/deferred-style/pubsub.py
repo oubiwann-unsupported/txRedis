@@ -65,7 +65,6 @@ def example():
     return d
 
 
-
 def runTest():
     redis1 = yield getRedisSubscriber()
     redis2 = yield getRedis()
