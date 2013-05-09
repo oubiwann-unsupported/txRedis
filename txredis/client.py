@@ -1538,7 +1538,7 @@ class RedisSubscriber(RedisBase):
         this connection, then channelSubscribed will not be invoked but the
         channel will continue to be subscribed to.
         """
-        self.send('SUBSCRIBE', *channels)
+        return self.send('SUBSCRIBE', *channels)
 
     def unsubscribe(self, *channels):
         """
@@ -1549,7 +1549,7 @@ class RedisSubscriber(RedisBase):
         provided that is not subscribed to by this connection, then
         channelUnsubscribed will not be invoked.
         """
-        self.send('UNSUBSCRIBE', *channels)
+        return self.send('UNSUBSCRIBE', *channels)
 
     def psubscribe(self, *patterns):
         """
@@ -1559,7 +1559,7 @@ class RedisSubscriber(RedisBase):
         channelPatternSubscribed will be invoked for each channel pattern that
         is subscribed to.
         """
-        self.send('PSUBSCRIBE', *patterns)
+        return self.send('PSUBSCRIBE', *patterns)
 
     def punsubscribe(self, *patterns):
         """
@@ -1569,7 +1569,7 @@ class RedisSubscriber(RedisBase):
         channelPatternUnsubscribed will be invoked for eeach channel pattern
         that is unsubscribed from.
         """
-        self.send('PUNSUBSCRIBE', *patterns)
+        return self.send('PUNSUBSCRIBE', *patterns)
 
 
 class RedisClientFactory(ReconnectingClientFactory):
