@@ -1,19 +1,6 @@
-import time
-import hashlib
-
-from twisted.internet import error
-from twisted.internet import protocol
-from twisted.internet import reactor
 from twisted.internet import defer
-from twisted.internet.task import Clock
-from twisted.test.proto_helpers import StringTransportWithDisconnection
-from twisted.trial import unittest
-from twisted.trial.unittest import SkipTest
 
-from txredis.client import Redis, RedisSubscriber, RedisClientFactory
-from txredis.exceptions import ResponseError, NoScript
-from txredis.testing import CommandsBaseTestCase, REDIS_HOST, REDIS_PORT
-
+from txredis.testing import CommandsBaseTestCase
 
 
 class SetsCommandsTestCase(CommandsBaseTestCase):
@@ -317,7 +304,8 @@ class SetsCommandsTestCase(CommandsBaseTestCase):
         # provides is a numeric or a lexicographical sort; turns out that it's
         # numeric; i.e. redis is doing implicit type coercion for the sort of
         # numeric values.  This test serves to document that, and to a lesser
-        # extent check for regression in the implicit str() marshalling of txredis
+        # extent check for regression in the implicit str() marshalling of
+        # txredis
         r = self.redis
         t = self.assertEqual
         yield r.delete('l')
@@ -436,7 +424,6 @@ class SortedSetCommandsTestCase(CommandsBaseTestCase):
         ex = 1
         t(a, ex)
 
-
     @defer.inlineCallbacks
     def test_zcount(self):
         r = self.redis
@@ -450,7 +437,6 @@ class SortedSetCommandsTestCase(CommandsBaseTestCase):
         a = yield r.zcount('z', 1, 3)
         ex = 3
         t(a, ex)
-
 
     @defer.inlineCallbacks
     def test_zremrange(self):
@@ -538,7 +524,8 @@ class SortedSetCommandsTestCase(CommandsBaseTestCase):
         ex = [('a', 1.014), ('b', 4.252)]
         t(a, ex)
 
-        a = yield r.zrangebyscore('z', min=1, offset=1, count=2, withscores=True)
+        a = yield r.zrangebyscore(
+            'z', min=1, offset=1, count=2, withscores=True)
         ex = [('b', 4.252), ('d', 10.425)]
 
     @defer.inlineCallbacks
@@ -553,7 +540,6 @@ class SortedSetCommandsTestCase(CommandsBaseTestCase):
         yield r.delete('a')
         a = yield r.zrange('a', 0, -1, withscores=True)
         t(a, [])
-
 
     @defer.inlineCallbacks
     def test_zaggregatestore(self):

@@ -1,19 +1,10 @@
-import time
-import hashlib
-
-from twisted.internet import error
 from twisted.internet import protocol
 from twisted.internet import reactor
 from twisted.internet import defer
-from twisted.internet.task import Clock
-from twisted.test.proto_helpers import StringTransportWithDisconnection
-from twisted.trial import unittest
-from twisted.trial.unittest import SkipTest
 
-from txredis.client import Redis, RedisSubscriber, RedisClientFactory
-from txredis.exceptions import ResponseError, NoScript
+from txredis.client import Redis
+from txredis.exceptions import ResponseError
 from txredis.testing import CommandsBaseTestCase, REDIS_HOST, REDIS_PORT
-
 
 
 class ListsCommandsTestCase(CommandsBaseTestCase):
@@ -94,7 +85,6 @@ class ListsCommandsTestCase(CommandsBaseTestCase):
         a = yield r.llen('l')
         ex = 8
         t(a, ex)
-
 
     @defer.inlineCallbacks
     def test_llen(self):
@@ -333,7 +323,6 @@ class BlockingListOperartionsTestCase(CommandsBaseTestCase):
     """@todo test timeout
     @todo robustly test async/blocking redis commands
     """
-
     @defer.inlineCallbacks
     def test_bpop_noblock(self):
         r = self.redis

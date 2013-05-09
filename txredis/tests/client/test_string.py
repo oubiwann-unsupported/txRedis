@@ -1,17 +1,8 @@
-import time
-import hashlib
-
-from twisted.internet import error
-from twisted.internet import protocol
 from twisted.internet import reactor
 from twisted.internet import defer
-from twisted.internet.task import Clock
-from twisted.test.proto_helpers import StringTransportWithDisconnection
 from twisted.trial import unittest
-from twisted.trial.unittest import SkipTest
 
-from txredis.client import Redis, RedisSubscriber, RedisClientFactory
-from txredis.exceptions import ResponseError, NoScript
+from txredis.client import RedisClientFactory
 from txredis.testing import CommandsBaseTestCase, REDIS_HOST, REDIS_PORT
 
 
@@ -180,7 +171,6 @@ class StringsCommandTestCase(CommandsBaseTestCase):
         yield r.setbit('bittest', 10, 1)
         a = yield r.getbit('bittest', 10)
         self.assertEqual(a, 1)
-
 
     @defer.inlineCallbacks
     def test_bitcount(self):
