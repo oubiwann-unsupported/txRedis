@@ -28,18 +28,22 @@ class SubscriberFactory(RedisSubscriberFactory):
     protocol = Subscriber
 
 
-def processSubscription(result, publiser, subscriber):
+def processSubscription(result, publisher, subscriber):
     log.msg("Status of subscription request: %s" % result)
+    return (publisher, subscriber)
 
 
 def subscribeToChannel(publisher, subscriber):
+    log.msg("Subscribing to channel ...")
+    import pdb;pdb.set_trace()
     d = subscriber.subscribe("awesome-channel")
-    d.addErrback(log.msg)
-    d.addCallback(processSubscritption, publisher, subscriber)
+    d.addErrback(log.err)
+    d.addCallback(processSubscription, publisher, subscriber)
     return d
 
 
 def setUpPublisher(subscriber):
+    log.msg("Setting up publisher ...")
     publisherEndpoint = TCP4ClientEndpoint(reactor, "127.0.0.1", 6379)
     d = publisherEndpoint.connect(RedisClientFactory())
     d.addErrback(log.err)
@@ -48,6 +52,7 @@ def setUpPublisher(subscriber):
 
 
 def setUpSubscriber():
+    log.msg("Setting up subscriber ...")
     subscriberEndpoint = TCP4ClientEndpoint(reactor, "127.0.0.1", 6379)
     d = subscriberEndpoint.connect(SubscriberFactory())
     d.addErrback(log.err)
